@@ -8,15 +8,9 @@ var app = builder.Build();
 //Defines a route for HTTP GET requests to the root URL ("/") that responds with "Hello World! HTTP method + URL" 
 app.MapGet("/", (HttpContext context) =>
     {
-        var UserAgent = "";
-
-        if (context.Request.Headers.ContainsKey("User-Agent"))
-        {
-            UserAgent = context.Request.Headers["User-Agent"];
-        }
-
-        context.Response.StatusCode = 200;
-        return "User Agent: " + UserAgent;
+        context.Response.Headers["Content-Type"] = "text/html";
+        context.Response.Headers["MyHeader"] = "Hello, World";
+        return "<h2>This is a text response<h2>";
     }
 );
 
