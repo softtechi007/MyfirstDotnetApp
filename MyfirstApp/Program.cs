@@ -26,10 +26,23 @@ app.Run(async (HttpContext context) =>
     {
         context.Response.StatusCode = 200;
         await context.Response.WriteAsync("Your In Contact Page");
-    }else
+    }else if (path == "/Product")
+    {
+        context.Response.StatusCode = 200;
+        if (context.Request.Query.ContainsKey("id")
+        && context.Request.Query.ContainsKey("name"))
+        {
+            string id = context.Request.Query["id"];
+            string name = context.Request.Query["name"];
+            await context.Response.WriteAsync("Your Selected the product with ID "+ id + " and name " + name);
+            return;
+        }
+        await context.Response.WriteAsync("Your In Products Page");
+    }
+    else
     {
         context.Response.StatusCode = 404;
-        await context.Response.WriteAsync("The [age your looking for is not found!");
+        await context.Response.WriteAsync("The age your looking for is not found!");
     }
     
 });
